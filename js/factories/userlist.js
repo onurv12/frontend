@@ -50,5 +50,15 @@
 			}
 		});
 	};
+	object.deleteUser = function(userID) {
+		$http
+		.delete(settingsFactory.backendUrl + "user/" + userID)
+		.success(function(data) {
+			notificationFactory.success({content: "User is successfully deleted"});
+		})
+		.error(function(data, status) {
+			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  " + status + " and response: " + data});
+		});
+	};
 	return object;
 });;
