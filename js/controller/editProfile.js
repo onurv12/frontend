@@ -3,6 +3,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 	$rootScope.updateHeader();
 	$scope.administratorLoggedIn = false;
 	$scope.moderatorLoggedIn = false;
+	$scope.selfLoggedIn = false;
 	$scope.readOnly = {username: true, fullName: true, email: true, gravatar: true, role: true};
 	$scope.changeVer = {username: true, fullName: true, email: true, gravatar: true, role: true, password: true};
 	$scope.passChangeable = false;
@@ -13,6 +14,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 	$scope.fetchUser = function(size) {
 		userlistFactory.getUser(userID).then(function(data) {
 			$scope.user = data;
+			$scope.selfLoggedIn = userFactory.getUserData()["ID"] == userID;
 			$scope.gravatar = "http://www.gravatar.com/avatar/" + hashService.MD5($scope.user.GravatarEmail) + ".jpg?s=" + size;
 			if($scope.user.isAdmin == "1") {
 				if($scope.user.isDeleteable == "0") {
