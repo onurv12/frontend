@@ -1,4 +1,4 @@
-app.controller("editProfileController", function ($scope, $rootScope, $routeParams, userlistFactory, userFactory, notificationFactory, hashService, $route) {
+app.controller("editProfileController", function ($scope, $rootScope, $routeParams, userlistFactory, userFactory, notificationFactory, hashService, $route, $location) {
 	var userID = $routeParams.userID;
 	$rootScope.updateHeader();
 	$scope.administratorLoggedIn = false;
@@ -50,6 +50,10 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 			userlistFactory.updateUser(userID, action, newValue);
 		}
 		$route.reload();
+	};
+	$scope.deleteUser = function(userID) {
+		userlistFactory.deleteUser(userID);
+		$location.path("/userlist");
 	};
 	$scope.getRoleFromUser = function(user) {
 		if (user && user.isAdmin == 1) {
